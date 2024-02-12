@@ -61,6 +61,9 @@ const sendMessage = async (phone, message, imageUrls = []) => {
             if (error.response.data.message == 'US A2P 10DLC - Daily Message Cap Reached') {
                 return;
             }
+            else if (error.response.data.message == 'Attempt to send to unsubscribed recipient') {
+                return;
+            }
             else {
                 alert(error.response.data.message);
                 throw new Error('App stopped');
