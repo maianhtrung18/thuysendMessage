@@ -1,10 +1,7 @@
-GlobalRetryCount = 0;
+let GlobalRetryCount = 0;
 const getStorage = (key) => {
     const storage = localStorage.getItem('thuyOpenPhone');
-    if (!storage) {
-        return '';
-    }
-    return JSON.parse(storage)[key];
+    return storage ? JSON.parse(storage)[key] : '';
 };
 
 const getToken = async () => {
@@ -21,7 +18,7 @@ const getToken = async () => {
 
 const updateStorage = (variable) => {
     const storage = localStorage.getItem('thuyOpenPhone');
-    const updatedStorage = { ...JSON.parse(storage), ...variable };
+    const updatedStorage = { ...(JSON.parse(storage) || {}), ...variable };
     localStorage.setItem('thuyOpenPhone', JSON.stringify(updatedStorage));
 };
 
