@@ -1,7 +1,7 @@
 GlobalToken = "";
 GlobalStopApi = false;
 window.onload = function () {
-    document.getElementById("messageBody").value = getStorage("message");
+    document.getElementById("messageBody").value = getStorage("message") ? getStorage("message") : "";
 
     const imageArr = getStorage("imageArr");
     const addImage = document.getElementById("inputImage");
