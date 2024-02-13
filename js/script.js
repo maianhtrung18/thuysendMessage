@@ -112,6 +112,10 @@ const sendAll = async (event) => {
         return;
     }
     const message = document.getElementById("messageBody").value;
+    if (!message) {
+        alert("Please enter a message");
+        return;
+    }
     const images = document.getElementsByClassName("imageUrl");
     const imageArr = Array.from(images).map((item) => item.value);
     GlobalToken = await getStorage("token");
