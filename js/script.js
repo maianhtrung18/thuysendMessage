@@ -10,7 +10,7 @@ window.onload = function () {
         imageArr.forEach((imageUrl) => {
             const imageDisplay = createImageDisplay(imageUrl);
             const imageElement = createImageUrlInput(imageUrl, imageDisplay);
-            const removeButton = createRemoveButton(imageElement);
+            const removeButton = createRemoveButton(imageElement, imageDisplay);
 
             addImage.appendChild(imageElement);
             addImage.appendChild(removeButton);
@@ -67,7 +67,8 @@ const createRemoveButton = (imageElement, imageDisplay) => {
     const removeButton = document.createElement("button");
     removeButton.textContent = "Remove";
     removeButton.className = "btn btn-danger mb-3";
-    removeButton.addEventListener("click", () => {
+    removeButton.addEventListener("click", (event) => {
+        event.preventDefault();
         imageElement.remove();
         imageDisplay.remove();
         removeButton.remove();
