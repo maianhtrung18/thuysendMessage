@@ -66,7 +66,6 @@ const sendMessage = async (phone, message, imageUrls = []) => {
             }
             else {
                 alert(error.response.data.message);
-                throw new Error('App stopped');
             }
         }
         else {

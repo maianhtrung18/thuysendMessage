@@ -8,11 +8,13 @@ window.onload = function () {
 
     if (imageArr.length > 0) {
         imageArr.forEach((imageUrl) => {
-            const imageElement = createImageElement(imageUrl);
+            const imageDisplay = createImageDisplay(imageUrl);
+            const imageElement = createImageUrlInput(imageUrl, imageDisplay);
             const removeButton = createRemoveButton(imageElement);
 
             addImage.appendChild(imageElement);
             addImage.appendChild(removeButton);
+            addImage.appendChild(imageDisplay);
         });
     }
 };
@@ -28,29 +30,46 @@ const stopRequest = () => {
 
 
 const addImage = () => {
-    const imageElement = createImageElement();
-    const removeButton = createRemoveButton(imageElement);
+    const imageDisplay = createImageDisplay();
+    const imageElement = createImageUrlInput("", imageDisplay);
+    const removeButton = createRemoveButton(imageElement, imageDisplay);
     const addImage = document.getElementById("inputImage");
 
     addImage.appendChild(imageElement);
     addImage.appendChild(removeButton);
+    addImage.appendChild(imageDisplay);
 };
 
-const createImageElement = (imageUrl = "") => {
+const createImageUrlInput = (imageUrl = "", imageDisplayElement) => {
     const imageElement = document.createElement("input");
     imageElement.className = "form-control mb-3 imageUrl";
     imageElement.value = imageUrl;
-    imageElement.onchange = updateImageArr;
+    imageElement.addEventListener("change", () => {
+        imageDisplayElement.src = imageElement.value;
+        updateImageArr();
+    });
 
     return imageElement;
 };
 
-const createRemoveButton = (imageElement) => {
+const createImageDisplay = (imageUrl = "") => {
+    const imageElement = document.createElement("img");
+    imageElement.src = imageUrl;
+    imageElement.width = 200;
+    imageElement.height = 200;
+    imageElement.style.marginLeft = "20px";
+    imageElement.className = "img-thumbnail mb-3";
+
+    return imageElement;
+}
+
+const createRemoveButton = (imageElement, imageDisplay) => {
     const removeButton = document.createElement("button");
     removeButton.textContent = "Remove";
     removeButton.className = "btn btn-danger mb-3";
     removeButton.addEventListener("click", () => {
         imageElement.remove();
+        imageDisplay.remove();
         removeButton.remove();
         updateImageArr();
     });
