@@ -44,6 +44,7 @@ const createImageUrlInput = (imageUrl = "", imageDisplayElement) => {
     const imageElement = document.createElement("input");
     imageElement.className = "form-control mb-3 imageUrl";
     imageElement.value = imageUrl;
+    imageElement.placeholder = "Image url"
     imageElement.addEventListener("change", () => {
         imageDisplayElement.src = imageElement.value;
         updateImageArr();
