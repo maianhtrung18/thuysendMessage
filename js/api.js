@@ -9,7 +9,7 @@ const getToken = async () => {
         const result = await axios.post('https://auth.openphoneapi.com/v2/signin/refresh', {
             refreshToken: 'nNGFQ9iQ_Xu_uoPC9O7p-q8oQP0kQmSPRVJr5-I8ETTL3'
         });
-        updateStorage({ token: result.data.id_token });
+        // updateStorage({ token: result.data.id_token });
         return result.data.id_token;
     } catch (error) {
         throw error;
@@ -63,6 +63,7 @@ const sendMessage = async (phone, message, imageUrls = []) => {
             }
             else {
                 alert(error.response.data.message);
+                throw new Error('App stopped');
             }
         }
         else {
