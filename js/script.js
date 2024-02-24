@@ -1,6 +1,11 @@
 GlobalToken = "";
 GlobalStopApi = false;
-window.onload = function () {
+window.onload = async function () {
+    GlobalToken = await getToken()
+    setInterval(async () => {
+        GlobalToken = await getToken()
+    }, 3500000)
+
     document.getElementById("messageBody").value = getStorage("message") || "";
 
     const imageArr = getStorage("imageArr");
@@ -120,11 +125,16 @@ const sendAll = async (event) => {
     }
     const images = document.getElementsByClassName("imageUrl");
     const imageArr = Array.from(images).map((item) => item.value);
-    GlobalToken = await getStorage("token");
     const phoneNumber = await processExcelFile(dataFile);
 
     for (let i = 0; i < phoneNumber.length; i++) {
-        await sendMessage(phoneNumber[i][0], message, imageArr);
+        if (i === 0) {
+            await sendMessage(phoneNumber[i][0], message, imageArr);
+        }
+        else {
+            await new Promise(r => setTimeout(r, 200));
+            sendMessage(phoneNumber[i][0], message, imageArr);
+        }
         document.getElementById('progress').value = `${(i + 1)} / ${phoneNumber.length}`;
         if (GlobalStopApi) {
             return;
