@@ -110,6 +110,8 @@ const processExcelFile = (file) => {
 };
 
 const sendAll = async (event) => {
+    const progressElement = document.getElementById('progress')
+    progressElement.value = ''
     GlobalStopApi = false;
     GlobalRetryCount = 0;
     event.preventDefault();
@@ -135,7 +137,7 @@ const sendAll = async (event) => {
             await new Promise(r => setTimeout(r, 200));
             sendMessage(phoneNumber[i][0], message, imageArr);
         }
-        document.getElementById('progress').value = `${(i + 1)} / ${phoneNumber.length}`;
+        progressElement.value = `${(i + 1)} / ${phoneNumber.length}`;
         if (GlobalStopApi) {
             return;
         }
