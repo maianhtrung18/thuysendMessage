@@ -33,7 +33,8 @@ const sendMessage = async (phone, message, imageUrls = []) => {
         }, {
             headers: {
                 authorization: GlobalToken
-            }
+            },
+            timeout: 8000
         });
         return 'success';
     } catch (error) {
